@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
+
+:root {
+    --color-bg-1: #1a1a2e;
+    --color-bg-2: #16213e;
+    --color-accent: #e94560;
+    --color-glass: rgba(255, 255, 255, 0.05);
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+    --color-text: #ffffff;
+    --card-back: #0f3460;
+    --card-front: #ffffff;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, var(--color-bg-2), var(--color-bg-1));
+    font-family: 'Outfit', sans-serif;
+    color: var(--color-text);
+    user-select: none;
+    margin: 0;
+    overflow: hidden; /* Prevent scrollbars from animations */
+}
+
+/* Subtle background particles or noise could go here, keeping it clean for now */
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 60px;
+    
+    /* Glassmorphism Effect */
+    background: var(--color-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+    margin: 0;
+}
+
+.game {
+    width: 440px;
+    height: 440px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+
+.item {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-front);
+    
+    /* Rounded corners + Shadow */
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    background-size: contain; /* Changed from cover to contain to fit images better */
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    transform: rotateY(180deg);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+    cursor: pointer;
+}
+
+/* Hover Effect for Closed Cards (Optional, subtle hint) */
+/* Note: Since we rotateY(180deg) initially, hover might need specific handling or be applied to the ::after. 
+   Simplest is to just scale slightly on active state or focus. */
+.item:active {
+    transform: rotateY(180deg) scale(0.95);
+}
+.boxOpen:active, .boxMatch:active {
+    transform: rotateY(0deg) scale(0.95);
+}
+
+.item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--card-back);
+    
+    /* Marvel Logo or Generic Back Image could go here if available, using gradient for now */
+    background-image: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Icon for back of card */
+    font-size: 2rem;
+    color: rgba(255,255,255,0.2); 
+    
+    transition: 0.25s;
+    transform: rotateY(0deg);
+    backface-visibility: hidden;
+    
+    /* Enhance border look */
+    border: 2px solid var(--color-glass-border);
+}
+
+/* Adds a generic symbol to the back of the card if you want */
+.item::after {
+    content: "?"; 
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+/* Card States */
+.item.boxOpen,
+.item.boxMatch {
+    transform: rotateY(0deg);
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.6); /* Glow effect on open */
+}
+
+/* Hide the back when open */
+.boxOpen::after,
+.boxMatch::after {
+    transform: rotateY(180deg);
+}
+
+/* Images Mapping */
+/* Ensure your image paths are correct relative to main.css */
+.capitanMarvel { background-image: url('../images/CapitanMavel.png'); }
+.capitaoAmerica { background-image: url('../images/CapitaoAmerica.png'); }
+.homemAranha { background-image: url('../images/HomemAranha.png'); }
+.homemDeFerro { background-image: url('../images/HomemDeFerro.png'); }
+.hulk { background-image: url('../images/Hulk.png'); }
+.logan { background-image: url('../images/Logan.png'); }
+.phoenix { background-image: url('../images/Phoenix.png'); }
+.thor { background-image: url('../images/Thor.png'); }
+
+/* Reset Button */
+.reset {
+    padding: 15px 30px;
+    width: 100%;
+    color: #fff;
+    background: linear-gradient(90deg, #e94560, #a81d37);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+}
+
+.reset:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+    filter: brightness(1.1);
+}
+
+.reset:active {
+    transform: translateY(1px);
+}
+
+/* Responsiveness */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 20px;
+        width: 90%;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .game {
+        width: 100%;
+        height: auto;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .item {
+        width: 70px;
+        height: 70px;
+    }
+}
