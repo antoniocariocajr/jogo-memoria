@@ -11,13 +11,36 @@
 </head>
 
 <body>
-    <div class="container">
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen">
+        <div class="content">
+            <h1>Memory Game</h1>
+            <p>Encontre os pares dos heróis!</p>
+            <button id="start-btn" class="btn-primary">Iniciar Jogo</button>
+        </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victory-screen" class="screen hidden">
+        <div class="content">
+            <h1>Vitória!</h1>
+            <p>Você venceu com <span id="final-moves">0</span> movimentos!</p>
+            <button id="restart-btn" class="btn-primary">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="game-container">
+        <div class="stats-bar">
+            <div class="stat-item">Movimentos: <span id="moves-count">0</span></div>
+            <div class="stat-item">Pares: <span id="pairs-count">0/8</span></div>
+        </div>
+
         <h2> JOGO DA MEMÓRIA</h2>
         <div class="game">
-
+            <!-- Cards injected by JS -->
         </div>
         <button class="reset" id="reset">
-            Reset Game
+            Reiniciar
         </button>
     </div>
     <script src="./src/scripts/engine.js"></script>
